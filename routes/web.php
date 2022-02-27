@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\User;
+use App\Models\Order;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Blade;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,10 @@ use Illuminate\Support\Facades\Blade;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/users/{user}/orders/{order}', function (User $user, Order $order) {
+    dd($user, $order);
+})->scopeBindings();
 
 Route::get('/', function () {
     return Blade::render('Hello {{ $username }} <br>
