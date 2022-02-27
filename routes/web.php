@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Order\OrderStatus;
 use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Facades\Blade;
@@ -22,10 +23,22 @@ Route::get('/users/{user}/orders/{order}', function (User $user, Order $order) {
 })->scopeBindings();
 
 Route::get('/', function () {
-    return Blade::render('Hello {{ $username }} <br>
-    @if ($username === "Nord Coders") coucou @endif', [
-        'username' => 'Nord Coders1'
-    ]);
+
+    $order = Order::first();
+
+    $order->status = OrderStatus::Success;
+    $order->save();
+
+    if ($order->status === OrderStatus::Success) {
+        return 'Success';
+    }
+
+    return 'Not Success';
+
+    // return Blade::render('Hello {{ $username }} <br>
+    // @if ($username === "Nord Coders") coucou @endif', [
+    //     'username' => 'Nord Coders1'
+    // ]);
 });
 
 Route::controller(OrderController::class)->group(function (){
