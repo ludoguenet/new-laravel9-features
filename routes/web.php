@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use Illuminate\Support\Facades\Blade;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,12 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::get('helpers', function () {
-    return str('hello')->append(' nord coders')->upper();
-});
-
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/demo', function () {
-    return to_route('welcome');
-})->name('demo');
+    return Blade::render('Hello {{ $username }} <br>
+    @if ($username === "Nord Coders") coucou @endif', [
+        'username' => 'Nord Coders1'
+    ]);
+});
 
 Route::controller(OrderController::class)->group(function (){
     Route::post('orders', 'store');
