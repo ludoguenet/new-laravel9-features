@@ -24,7 +24,7 @@ Route::get('/users/{user}/orders/{order}', function (User $user, Order $order) {
 
 Route::get('/', function () {
 
-    $order = Order::first();
+    dd(Order::first()->link);
 
     $order->status = OrderStatus::Success;
     $order->save();
@@ -43,7 +43,7 @@ Route::get('/', function () {
 
 Route::controller(OrderController::class)->group(function (){
     Route::post('orders', 'store');
-    Route::get('orders/{order}', 'show');
+    Route::get('orders/{order}', 'show')->name('orders.show');
     Route::delete('orders/{order}', 'destroy');
 });
 
