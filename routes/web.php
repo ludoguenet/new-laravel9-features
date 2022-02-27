@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('helpers', function () {
+    return str('hello')->append(' nord coders')->upper();
+});
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/demo', function () {
+    return to_route('welcome');
+})->name('demo');
 
 Route::controller(OrderController::class)->group(function (){
     Route::post('orders', 'store');
     Route::get('orders/{order}', 'show');
     Route::delete('orders/{order}', 'destroy');
 });
+
 
